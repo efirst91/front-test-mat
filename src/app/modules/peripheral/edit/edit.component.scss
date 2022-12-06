@@ -1,0 +1,23 @@
+@import "../../../../assets/scss/mixin/mixings.scss";
+
+.edit-peripheral-container {
+  &__form {
+    &__form-one {
+      @include displayType($xAxis: space-around)
+    }
+
+    &__title-peripheral-list,
+    &__peripherals-container {
+      @include displayType($xAxis: space-between)
+    }
+  }
+
+  &__message-box{
+    @include displayType($direction: column);
+  }
+
+  &__actions {
+    @include displayType($xAxis: flex-end);
+    gap: 1rem;
+  }
+}

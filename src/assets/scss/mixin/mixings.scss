@@ -1,0 +1,13 @@
+/* MIXINS */
+/*Use it to flex options, this values are by default*/
+@mixin displayType(
+  $display:flex,
+  $direction:row,
+  $xAxis:center,
+  $yAxis:center) {
+
+  display: $display;
+  flex-direction: $direction;
+  justify-content: $xAxis;
+  align-items: $yAxis;
+}

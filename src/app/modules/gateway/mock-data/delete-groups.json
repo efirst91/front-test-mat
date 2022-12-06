@@ -1,0 +1,13 @@
+{
+  "DeleteGroupOk": {
+    "data": {
+      "message": "All gateways were be deleted successfully"
+    },
+    "success": true
+  },
+  "DeleteGroupKo": {
+    "error": "Can not be cast",
+    "success": false
+  }
+}
+

@@ -1,0 +1,114 @@
+<section class="edit-gateway-container">
+  <h1 mat-dialog-title>{{data?.title}}</h1>
+  <form mat-dialog-content [formGroup]="formEdit" class="edit-gateway-container__form"
+        *ngIf="data?.action !== TableAction.DELETE">
+    <div class="edit-gateway-container__form__form-one">
+      <mat-form-field appearance="outline">
+        <mat-label>Human readable name</mat-label>
+        <input matInput type="text" formControlName="humanReadableName">
+        <button *ngIf="formEdit.get('humanReadableName')?.value" matSuffix mat-icon-button aria-label="Clear"
+                (click)="formEdit.get('humanReadableName')?.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ipv4</mat-label>
+        <input matInput type="text" formControlName="ipv4">
+        <button *ngIf="formEdit.get('ipv4')?.value" matSuffix mat-icon-button aria-label="Clear"
+                (click)="formEdit.get('ipv4')?.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="formEdit.get('ipv4')?.hasError('ipV4Invalid')">
+          Invalid ip, try to another one
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="edit-gateway-container__form__title-peripheral-list">
+      <h3>Peripheral device list</h3>
+      <button mat-mini-fab color="primary" (click)="addPeripheral()" matTooltip="Add new peripheral"
+              aria-label="New peripheral">
+        <mat-icon class="add-course-btn">add</mat-icon>
+      </button>
+    </div>
+
+    <ng-container formArrayName="peripheralsDevices" *ngIf="!loadingPeripheralsData;else loading">
+      <ng-container *ngFor="let itemForm of peripherals().controls; let i = index">
+        <div class="edit-gateway-container__form__peripherals-container" [formGroupName]="i">
+          <mat-form-field appearance="outline">
+            <mat-label>UID</mat-label>
+            <input matInput type="number" formControlName="uid">
+            <button *ngIf="formEdit.get('uid')?.value" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="formEdit.get('uid')?.setValue('')">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="formEdit.get('uid')?.hasError('pattern')">
+              Only number allowed
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Vendor</mat-label>
+            <input matInput type="text" formControlName="vendor">
+            <button *ngIf="formEdit.get('vendor')?.value" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="formEdit.get('vendor')?.setValue('')">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="formEdit.get('vendor')?.hasError('pattern')">
+              Only letters and spaces allowed
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option *ngFor="let status of peripheralStatus" [value]="status.value">
+                {{status.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button matSuffix mat-icon-button aria-label="Delete"
+                  (click)="onDeleteItem(i)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </ng-container>
+    </ng-container>
+  </form>
+
+  <ng-container [ngTemplateOutlet]="messageDelete" *ngIf="data?.action === TableAction.DELETE"></ng-container>
+
+  <div mat-dialog-actions class="edit-gateway-container__actions">
+    <button mat-button aria-label="Accept"
+            *ngIf="data?.action !== TableAction.DELETE"
+            [disabled]="!formEdit.valid"
+            (click)="onAccept()">
+      Accept
+    </button>
+
+    <button mat-button aria-label="Accept"
+            *ngIf="data?.action === TableAction.DELETE"
+            [disabled]="!formEdit.valid"
+            [mat-dialog-close]="'ok'">
+      Accept
+    </button>
+
+    <button mat-button aria-label="Cancel"
+            [mat-dialog-close]="null">
+      Cancel
+    </button>
+  </div>
+</section>
+
+<ng-template #messageDelete>
+  <div mat-dialog-content class="edit-gateway-container__message-box">
+    <span>Are you sure do you want to delete this element?</span>
+  </div>
+</ng-template>
+
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>

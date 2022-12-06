@@ -1,0 +1,11 @@
+<mat-toolbar class="main-layout-container main-color-toolbar-bg">
+  <div class="main-layout-container__wrapper-layout">
+    <button mat-raised-button class="gateway-nav-btn main-color-btn-bg" aria-label="Gateway button" (click)="onNavigateTo('gateway')">
+      Gateway
+    </button>
+    <button mat-raised-button class="peripheral-nav-btn secondary-color-btn-bg" aria-label="Gateway button" (click)="onNavigateTo('peripheral')">
+      Peripheral
+    </button>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>

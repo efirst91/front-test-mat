@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/scss/global";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  .main-color-btn-bg {
+    background-color: #ed604d;
+    color: white;
+  }
+
+  .secondary-color-btn-bg {
+    background-color: #ed854d;
+
+    color: white;
+  }
+
+  .main-color-toolbar-bg {
+    background-color: #3896ab;
+  }
+
+  .w-100 {
+    width: 100%;
+  }
+
+  .text-center {
+    margin-top: 1rem;
+    text-align: center;
+  }
+}

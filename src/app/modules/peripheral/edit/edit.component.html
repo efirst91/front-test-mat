@@ -1,0 +1,64 @@
+<section class="edit-peripheral-container">
+  <h1 mat-dialog-title>{{data?.title}}</h1>
+  <form mat-dialog-content [formGroup]="formEdit" class="edit-peripheral-container__form"
+        *ngIf="data?.action !== TableAction.DELETE">
+    <div class="edit-peripheral-container__form__form-one">
+      <mat-form-field appearance="outline">
+        <mat-label>Uid</mat-label>
+        <input matInput type="number" formControlName="uid">
+        <button *ngIf="formEdit.get('uid')?.value" matSuffix mat-icon-button aria-label="Clear"
+                (click)="formEdit.get('uid')?.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Vendor</mat-label>
+        <input matInput type="text" formControlName="vendor">
+        <button *ngIf="formEdit.get('vendor')?.value" matSuffix mat-icon-button aria-label="Clear"
+                (click)="formEdit.get('vendor')?.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let status of peripheralStatus" [value]="status.value">
+            {{status.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <ng-container [ngTemplateOutlet]="messageDelete" *ngIf="data?.action === TableAction.DELETE"></ng-container>
+
+  <div mat-dialog-actions class="edit-peripheral-container__actions">
+    <button mat-button aria-label="Accept"
+            *ngIf="data?.action !== TableAction.DELETE"
+            [disabled]="!formEdit.valid"
+            (click)="onAccept()">
+      Accept
+    </button>
+
+    <button mat-button aria-label="Accept"
+            *ngIf="data?.action === TableAction.DELETE"
+            [disabled]="!formEdit.valid"
+            [mat-dialog-close]="'ok'">
+      Accept
+    </button>
+
+    <button mat-button aria-label="Cancel"
+            [mat-dialog-close]="null">
+      Cancel
+    </button>
+  </div>
+</section>
+
+<ng-template #messageDelete>
+  <div mat-dialog-content class="edit-peripheral-container__message-box">
+    <span *ngIf="data.row | haveParent">This peripheral belong to a gateway, if this is deleted, then in the gateway will be deleted too.</span>
+    <span>Are you sure do you want to delete this element?</span>
+  </div>
+</ng-template>
