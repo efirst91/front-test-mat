@@ -27,7 +27,9 @@
 
     <div class="edit-gateway-container__form__title-peripheral-list">
       <h3>Peripheral device list</h3>
-      <button mat-mini-fab color="primary" (click)="addPeripheral()" matTooltip="Add new peripheral"
+      <mat-error *ngIf="peripherals().length >= 10">Each gateway only have until 10 associated peripheral devices</mat-error>.
+      <button mat-mini-fab color="primary" [disabled]="peripherals().length >= 10" (click)="addPeripheral()"
+              matTooltip="Add new peripheral"
               aria-label="New peripheral">
         <mat-icon class="add-course-btn">add</mat-icon>
       </button>
