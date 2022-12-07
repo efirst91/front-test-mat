@@ -31,7 +31,6 @@ import {NotificationsService} from "../../core/services/notifications.service";
 import {PeripheralCrudService} from "../peripheral/services/crud/peripheral-crud.service";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {Gateway} from "../../core/interface/gateway/gateway-req";
-import requireMock = jest.requireMock;
 import {of} from "rxjs";
 
 describe('GatewayComponent', () => {
@@ -117,23 +116,19 @@ describe('GatewayComponent', () => {
   it('on delete group action', () => {
     component.selection.select(...gateways);
     const service = jest.spyOn(_gatewayCrudService, 'deleteGroup').mockReturnValue(of(mockGroupResponse.DeleteGroup));
-    // _gatewayCrudService.deleteGroup([]).subscribe(
-    //   response => {
-    const result = {
-      "data": {
-        "message": "All gateways were be deleted successfully"
-      },
-      "success": true
-    };
-    component.onDeleteGroup();
-    fixture.detectChanges();
-    expect(service).toHaveBeenCalledTimes(1);
-    // expect(component.dataSource).toEqual(result);
+    _gatewayCrudService.deleteGroup([]).subscribe(
+      response => {
+        const result = {
+          "data": {
+            "message": "All gateways were be deleted successfully"
+          },
+          "success": true
+        };
+        component.onDeleteGroup();
+        fixture.detectChanges();
+        expect(service).toHaveBeenCalledTimes(1);
+        expect(response).toEqual(result);
+      })
 
-  })
-
-  it('delete error', () => {
-    component.selection.select(...gateways);
-    const service = jest.spyOn(_gatewayCrudService, 'deleteGroup').mockReturnValue(of(mockGroupResponse.DeleteGroupKo));
   })
 });
