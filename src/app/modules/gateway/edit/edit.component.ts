@@ -96,8 +96,6 @@ export class EditComponent implements OnInit {
     this.formEdit.get('serialNumber')?.setValue(gateway.serialNumber);
     this.formEdit.get('humanReadableName')?.setValue(gateway.humanReadableName);
     this.formEdit.get('ipv4')?.setValue(gateway.ipv4);
-    console.log('periferico son estos ', gateway.peripheralsDevices);
-
     this.searchPeripheral(gateway).then();
   }
 
