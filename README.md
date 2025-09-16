@@ -1,4 +1,5 @@
-# FrontMusala
+# Front for peripheral devices
+This is the front for the backend node-api-crud
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
